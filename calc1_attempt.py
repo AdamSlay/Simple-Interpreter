@@ -15,16 +15,16 @@ class Interpreter(object):
     def __init__(self, string):
         self.string = string
 
-    def add(self, string):
-        return int(string[0]) + int(string[2])
-    def sub(self, string):
-        return int(string[0]) - int(string[2])
-    def mul(self, string):
-        return int(string[0]) * int(string[2])
-    def div(self, string):
-        return int(string[0]) / int(string[2])
-    def pow(self, string):
-        return int(string[0]) ** int(string[2])
+    def add(self, n1, n2):
+        return int(n1) + int(n2)
+    def sub(self, n1, n2):
+        return int(n1) - int(n2)
+    def mul(self, n1, n2):
+        return int(n1) * int(n2)
+    def div(self, n1, n2):
+        return int(n1) / int(n2)
+    def pow(self, n1, n2):
+        return int(n1) ** int(n2)
     OPERATORS = {'+':add,
                  '-':sub,
                  '*':mul,
@@ -35,10 +35,12 @@ class Interpreter(object):
         result = 'invalid operation'
         for i in self.string:
             if i in self.OPERATORS:
+                index = self.string.index(i)
                 func = self.OPERATORS[i]
-                result = func(self, self.string)
-        if result:
-            return result
+                num1 = self.string[:index].strip()
+                num2 = self.string[index+1:].strip()
+                result = func(self, num1, num2)
+        return result
 
 
 def main():
